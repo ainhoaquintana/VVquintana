@@ -1,4 +1,6 @@
 <?php
+namespace Deg540\PHPTestingBoilerplate\Test;
+
 class fizzbuzz
 {
     function convert(int $number): String

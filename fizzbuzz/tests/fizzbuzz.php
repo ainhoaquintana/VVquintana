@@ -1,5 +1,4 @@
 <?php
-
 namespace Deg540\PHPTestingBoilerplate\Test;
 
 class fizzbuzz
@@ -26,4 +25,5 @@ class fizzbuzz
 
     }
 }
+
 
