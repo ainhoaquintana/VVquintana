@@ -1,8 +1,11 @@
 <?php
-namespace Deg540\PHPTestingBoilerplate\Test;
+namespace Deg540\PHPTestingBoilerplate;
 
-class fizzbuzz
+
+class Fizzbuzz
 {
+
+
     function convert(int $number): String
     {
         $number_array = str_split(strval($number));

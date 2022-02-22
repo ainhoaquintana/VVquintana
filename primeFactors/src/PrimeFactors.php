@@ -1,13 +1,16 @@
 <?php
 
-class primeFactors
+namespace Deg540\PHPTestingBoilerplate;
+
+class PrimeFactors
 {
-    public function generate ($number){
+    public function generate($number):array
+    {
         $factors = [];
         $divisor = 2;
-        while($number>1) {
+        while ($number > 1) {
             while ($number % $divisor == 0) {
-                $factors = $divisor;
+                $factors[]= $divisor;
                 $number = $number / $divisor;
             }
             $divisor++;
