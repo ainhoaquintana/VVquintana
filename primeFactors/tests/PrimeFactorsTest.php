@@ -57,4 +57,14 @@ class PrimeFactorsTest extends TestCase
 
         $this->assertEquals([2,2,5,5], $convertedValue);
     }
+
+    /**
+     * @test
+     */
+    public function when_34_given_return_2_17()
+    {
+        $convertedValue = $this->primefactors->generate(34);
+
+        $this->assertEquals([2,17], $convertedValue);
+    }
 }
