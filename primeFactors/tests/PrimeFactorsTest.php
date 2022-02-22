@@ -9,6 +9,7 @@ class PrimeFactorsTest extends TestCase
 {
 
     private PrimeFactors $primefactors;
+
     /**
      * @setup
      */
@@ -21,11 +22,21 @@ class PrimeFactorsTest extends TestCase
     /**
      * @test
      */
+    public function number_1_doesnt_have_factors()
+    {
+        $factorList = $this->primefactors->generate(1);
+
+        $this->assertEmpty($factorList);
+    }
+
+    /**
+     * @test
+     */
     public function when_2_given_return_2()
     {
-        $convertedValue = $this->primefactors->generate(2);
+        $factorList = $this->primefactors->generate(2);
 
-        $this->assertEquals([2], $convertedValue);
+        $this->assertEquals([2], $factorList);
     }
 
     /**
@@ -33,9 +44,9 @@ class PrimeFactorsTest extends TestCase
      */
     public function when_3_given_return_3()
     {
-        $convertedValue = $this->primefactors->generate(3);
+        $factorList = $this->primefactors->generate(3);
 
-        $this->assertEquals([3], $convertedValue);
+        $this->assertEquals([3], $factorList);
     }
 
     /**
@@ -43,9 +54,9 @@ class PrimeFactorsTest extends TestCase
      */
     public function when_4_given_return_2_2()
     {
-        $convertedValue = $this->primefactors->generate(4);
+        $factorList = $this->primefactors->generate(4);
 
-        $this->assertEquals([2,2], $convertedValue);
+        $this->assertEquals([2,2], $factorList);
     }
 
     /**
@@ -53,9 +64,9 @@ class PrimeFactorsTest extends TestCase
      */
     public function when_100_given_return_2_2_5_5()
     {
-        $convertedValue = $this->primefactors->generate(100);
+        $factorList = $this->primefactors->generate(100);
 
-        $this->assertEquals([2,2,5,5], $convertedValue);
+        $this->assertEquals([2,2,5,5], $factorList);
     }
 
     /**
@@ -63,8 +74,8 @@ class PrimeFactorsTest extends TestCase
      */
     public function when_34_given_return_2_17()
     {
-        $convertedValue = $this->primefactors->generate(34);
+        $factorList = $this->primefactors->generate(34);
 
-        $this->assertEquals([2,17], $convertedValue);
+        $this->assertEquals([2,17], $factorList);
     }
 }
