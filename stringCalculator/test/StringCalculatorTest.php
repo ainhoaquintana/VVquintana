@@ -49,7 +49,7 @@ class StringCalculatorTest extends TestCase
     /**
      * @test
      */
-    public function when_number_string_given_return_sum()
+    public function when_two_number_string_given_return_sum()
     {
         $calculatedValue = $this->stringCalculator->add("3.8, 7.2, 9.4");
         $this->assertEquals("20.4",$calculatedValue);
