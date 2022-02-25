@@ -9,7 +9,12 @@ class StringCalculator
 
     public function add(string $valueString)
     {
-        $sum = "0";
-        return ($sum);
+        $sum = 0;
+        $separatedString = explode (",", $valueString);
+        foreach ($separatedString as $i)
+        {
+            $sum =  $sum + floatval($i);
+        }
+        return (strval($sum));
     }
 }
