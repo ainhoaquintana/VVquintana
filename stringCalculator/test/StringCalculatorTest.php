@@ -63,4 +63,25 @@ class StringCalculatorTest extends TestCase
         $calculatedValue = $this->stringCalculator->add("3.8, 7.2, 8.3, 6.2, 1.5");
         $this->assertEquals("27",$calculatedValue);
     }
+
+    /**
+     * @test
+     */
+    public function use_newline_as_separator()
+    {
+        $calculatedValue = $this->stringCalculator->add("1\n 2, 3");
+        $this->assertEquals("6",$calculatedValue);
+    }
+
+    /**
+     * @test
+     */
+    public function when_comma_is_next_to_newline_throw_error()
+    {
+        $calculatedValue = $this->stringCalculator->add("1\n, 2, 3");
+        $this->assertStringContainsString("Number expected but '\n' found at position", $calculatedValue);
+    }
+
+
+
 }

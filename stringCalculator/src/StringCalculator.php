@@ -10,10 +10,18 @@ class StringCalculator
     public function add(string $valueString)
     {
         $sum = 0;
-        $separatedString = explode (",", $valueString);
-        foreach ($separatedString as $i)
+        for($i = 0; $i < strlen($valueString); $i++)
         {
-            $sum =  $sum + floatval($i);
+            if(($valueString[$i] == "," && $valueString[$i+1] == "\n")||($valueString[$i] == "\n" && $valueString[$i+1] == ","))
+            {
+                $pos = strpos($valueString, "\n");
+                return ("Number expected but '\n' found at position $pos");
+            }
+        }
+        $separatedString = preg_split('/(,|\n)/', $valueString);
+        foreach ($separatedString as $j)
+        {
+            $sum =  $sum + floatval($j);
         }
         return (strval($sum));
     }
