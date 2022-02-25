@@ -28,4 +28,15 @@ class StringCalculatorTest extends TestCase
         $this->assertIsString($calculatedValue);
     }
 
+    /**
+     * @test
+     */
+    public function when_empty_string_given_return_0()
+    {
+        $calculatedValue = $this->stringCalculator->add("");
+        $this->assertEquals("0",$calculatedValue);
+    }
+
+
+
 }
