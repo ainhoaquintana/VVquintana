@@ -40,10 +40,19 @@ class StringCalculatorTest extends TestCase
     /**
      * @test
      */
+    public function when_one_nomber_given_return_it()
+    {
+        $calculatedValue = $this->stringCalculator->add("999");
+        $this->assertEquals("999",$calculatedValue);
+    }
+
+    /**
+     * @test
+     */
     public function when_number_string_given_return_sum()
     {
-        $calculatedValue = $this->stringCalculator->add("1.2, 2.4");
-        $this->assertEquals("3.6",$calculatedValue);
+        $calculatedValue = $this->stringCalculator->add("3.8, 7.2, 9.4");
+        $this->assertEquals("20.4",$calculatedValue);
     }
 
 }
