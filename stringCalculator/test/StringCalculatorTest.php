@@ -82,6 +82,14 @@ class StringCalculatorTest extends TestCase
         $this->assertStringContainsString("Number expected but '\n' found at position", $calculatedValue);
     }
 
+    /**
+     * @test
+     */
+    public function when_input_ends_in_separator_throw_error()
+    {
+        $calculatedValue = $this->stringCalculator->add("1\n 2, 3,");
+        $this->assertEquals("Number expected but EOF found", $calculatedValue);
+    }
 
 
 }
