@@ -91,5 +91,14 @@ class StringCalculatorTest extends TestCase
         $this->assertEquals("Number expected but EOF found", $calculatedValue);
     }
 
+    /**
+     * @test
+     */
+    public function when_customized_separator_added_separate_with_it()
+    {
+        $calculatedValue = $this->stringCalculator->add("//;\n1;2");
+        $this->assertEquals("3", $calculatedValue);
+    }
+
 
 }

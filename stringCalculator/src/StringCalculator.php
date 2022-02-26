@@ -10,19 +10,48 @@ class StringCalculator
     public function add(string $valueString)
     {
         $sum = 0;
-        for($i = 0; $i < strlen($valueString); $i++)
+        $customizedSeparator = "";
+
+        //GET THE NEW SEPARATOR IF THE STRING STARTS WITH "//"
+        if($valueString[0]=="/")
         {
-            if(($valueString[$i] == "," and $valueString[$i+1] == "\n")||($valueString[$i] == "\n" or $valueString[$i+1] == ","))
+            $customizedSeparatorIterator = 2;
+            while($valueString[$customizedSeparatorIterator] != "\n")
+            {
+                $customizedSeparator .= $valueString[$customizedSeparatorIterator];
+                $customizedSeparatorIterator++;
+            }
+            $head = "//$customizedSeparator\n";
+            $valueString = str_replace($head, "", $valueString);
+        }
+
+        //CHECK IF THERE IS A SEPARATOR NEAR ANOTHER
+        $anterior = $valueString[0];
+        for($i = 1; $i <  strlen($valueString); $i++)
+        {
+            if(($valueString[$i] == "," and $anterior == "\n") or ($valueString[$i] == "\n" and $anterior == ","))
             {
                 $pos = strpos($valueString, "\n");
                 return ("Number expected but '\n' found at position $pos");
             }
-            if($valueString[strlen($valueString)-1] == "," or $valueString[strlen($valueString)-1] == "\n")
-            {
-                return("Number expected but EOF found");
-            }
+            $anterior = $valueString[$i];
         }
-        $separatedString = preg_split('/(,|\n)/', $valueString);
+
+        //CHECK IF STRING ENDS WITH SEPARATOR
+        if(str_ends_with($valueString, ",") or str_ends_with($valueString, "\n"))
+        {
+            return("Number expected but EOF found");
+        }
+
+        //GET THE SUM OF THE STRING
+        if (empty($customizedSeparator))
+        {
+            $separatedString = preg_split('/(,|\n)/', $valueString);
+        }
+        else
+        {
+            $separatedString = explode($customizedSeparator, $valueString);
+        }
         foreach ($separatedString as $j) {
             $sum = $sum + floatval($j);
         }
