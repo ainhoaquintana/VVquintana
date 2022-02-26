@@ -108,5 +108,22 @@ class StringCalculatorTest extends TestCase
         $this->assertEquals("'|' expected but ',' found in position 3", $calculatedValue);
     }
 
+    /**
+     * @test
+     */
+    public function when_negative_number_in_string_return_error()
+    {
+        $calculatedValue = $this->stringCalculator->add("3,-4.1,-3");
+        $this->assertStringContainsString("Negative not allowed : -4.1 -3", $calculatedValue);
+    }
+
+    /**
+     * @test
+     */
+    public function when_multiple_errors_happen_return_all_of_them()
+    {
+        $calculatedValue = $this->stringCalculator->add("3,,-4.1,-3");
+        $this->assertEquals("Negative not allowed : -4.1 -3\nNumber expected but ',' found in position 2", $calculatedValue);
+    }
 
 }
