@@ -18,7 +18,6 @@ class StringCalculatorTest extends TestCase
         $this->stringCalculator = new StringCalculator(); //Asi lo declaramos fuera de los test para no declarar lo mismo en cada test
     }
 
-
     /**
      * @test
      */
@@ -96,8 +95,17 @@ class StringCalculatorTest extends TestCase
      */
     public function when_customized_separator_added_separate_with_it()
     {
-        $calculatedValue = $this->stringCalculator->add("//;\n1;2");
-        $this->assertEquals("3", $calculatedValue);
+        $calculatedValue = $this->stringCalculator->add("//sep\n1sep2sep2.2");
+        $this->assertEquals("5.2", $calculatedValue);
+    }
+
+    /**
+     * @test
+     */
+    public function when_customized_separator_added_dont_separate_with_others()
+    {
+        $calculatedValue = $this->stringCalculator->add("//|\n1|2,3");
+        $this->assertEquals("'|' expected but ',' found in position 3", $calculatedValue);
     }
 
 
