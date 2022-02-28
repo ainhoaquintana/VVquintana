@@ -2,6 +2,7 @@
 
 namespace Deg540\PHPTestingBoilerplate;
 
+use SebastianBergmann\CliParser\RequiredOptionArgumentMissingException;
 use function PHPUnit\Framework\isEmpty;
 
 class StringCalculator
@@ -31,26 +32,31 @@ class StringCalculator
             $negativeNumbers="";
             $anterior = $valueString[0];
             for ($i = 1; $i < strlen($valueString); $i++) {
-
                 //CHECK IF THERE IS A SEPARATOR NEAR ANOTHER
-                if (($valueString[$i] == "," and $anterior == "\n") or ($valueString[$i] == "\n" and $anterior == ",")) {
-                    $pos = strpos($valueString, "\n");
-                    $errors .= "Number expected but '\n' found at position $pos\n";
+                if(!empty($customizedSeparator)){
+                    if($valueString[$i] == $customizedSeparator and $anterior == $customizedSeparator){
+                        $pos = strpos($valueString, $customizedSeparator);
+                        $errors .= "Number expected but $customizedSeparator found at position $pos\n";
+                    }
                 }
-                //CHECK IF THE STRING CONTAINS NEGATIVE NUMBERS
-                if($valueString[$i-1]=="-" and $customizedSeparator != "-"){
-                   $negativeNumbers .= " -$valueString[$i]";
+                else {
+                    if($valueString[$i] == "," and $anterior == ","){
+                        //$pos = strpos($valueString, ",");
+                        $errors .= "Number expected but ',' found at position $i\n";
+                    }
+                    if($valueString[$i] == "\n" and $anterior == "\n"){
+                       // $pos = strpos($valueString, "\n");
+                        $errors .= "Number expected but '\n' found at position $i\n";
+                    }
+                    if (($valueString[$i] == "," and $anterior == "\n") or ($valueString[$i] == "\n" and $anterior == ",")) {
+                        $pos = strpos($valueString, "\n");
+                        $errors .= "Number expected but '\n' found at position $pos\n";
+                    }
+
                 }
                 $anterior = $valueString[$i];
-
             }
 
-            //esto hay que arreglarlo aun
-
-            //RETURN ERROR IF THERE WAS ANY NEGATIVE NUMBER
-            if(!empty($negativeNumbers)){
-                $errors .= "Negative not allowed :$negativeNumbers";
-            }
 
             //CHECK IF STRING ENDS WITH SEPARATOR
             if (str_ends_with($valueString, ",") or str_ends_with($valueString, "\n")) {
@@ -58,6 +64,7 @@ class StringCalculator
             }
 
            //SEPARATE THE STRING
+            $separatedString = [];
             if (empty($customizedSeparator)) {
                 $separatedString = preg_split('/(,|\n)/', $valueString);
             } else {
@@ -74,13 +81,24 @@ class StringCalculator
                 }
             }
 
+            //CHECK IF THE STRING CONTAINS NEGATIVE NUMBERS
+            foreach($separatedString as $number){
+                if(str_contains( $number, "-")){
+                    $negativeNumbers .= " $number";
+                }
+            }
+            if(!empty($negativeNumbers)){
+                $errors .= "Negative not allowed :$negativeNumbers";
+            }
+
+
+            //RETURN THE ERRORS OR GET THE SUM
             if(!empty($errors)){
                 return($errors);
             }
             else{
-                //GET THE SUM OF THE STRING
-                foreach ($separatedString as $j) {
-                    $sum = $sum + floatval($j);
+                foreach ($separatedString as $number) {
+                    $sum = $sum + $number;
                 }
                 return (strval($sum));
             }

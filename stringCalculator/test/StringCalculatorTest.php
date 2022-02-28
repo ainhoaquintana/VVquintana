@@ -123,7 +123,7 @@ class StringCalculatorTest extends TestCase
     public function when_multiple_errors_happen_return_all_of_them()
     {
         $calculatedValue = $this->stringCalculator->add("3,,-4.1,-3");
-        $this->assertEquals("Negative not allowed : -4.1 -3\nNumber expected but ',' found in position 2", $calculatedValue);
+        $this->assertEquals("Number expected but ',' found at position 2\nNegative not allowed : -4.1 -3", $calculatedValue);
     }
 
 }
